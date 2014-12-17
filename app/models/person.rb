@@ -14,6 +14,8 @@ class Person < ActiveRecord::Base
     end
   end
   has_many :purchases, class_name: 'Item', inverse_of: :purchaser
+  has_many :invitations, :foreign_key => 'recipient_id', inverse_of: :recipient
+  has_many :sent_invitations, :class_name => "Invitation", :foreign_key => 'sender_id', inverse_of: :sender
 
   validates_presence_of :first_name, :last_name, :gender
 

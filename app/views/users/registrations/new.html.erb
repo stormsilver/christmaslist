@@ -19,6 +19,10 @@
         <%= select_field_for person_form, :gender, Person.genders.keys.collect{|g| [g.titleize, g]} %>
     <% end %>
 
+    <% if @invitation_token %>
+        <%= hidden_field_tag :invitation_token, @invitation_token %>
+    <% end %>
+
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-8">
             <%= f.submit "Sign up", class: 'btn btn-default' %>
