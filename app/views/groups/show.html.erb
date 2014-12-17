@@ -1,4 +1,16 @@
-<p id="notice"><%= notice %></p>
+<div class="col-lg-3">
+    <div class="panel panel-default">
+        <div class="panel-heading"><%= @group.name %></div>
+        <div class="panel-body">
+            <ul class="nav nav-pills nav-stacked">
+                <% @group.people.by_name.without(current_person).each do |person| %>
+                <li><%= link_to person.first_name, list_path(person.lists.current)  %></li>
+                <% end %>
+            </ul>
+        </div>
+    </div>
+</div>
 
-<%= link_to 'Edit', edit_group_path(@group) %> |
-<%= link_to 'Back', groups_path %>
+<div class="col-lg-9">
+
+</div>

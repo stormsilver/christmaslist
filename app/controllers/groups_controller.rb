@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :verify_editable, only: [:edit, :update, :destroy]
 
   def index
     @groups = current_person.groups
@@ -17,7 +18,7 @@ class GroupsController < ApplicationController
 
   def create
     @group = current_person.groups.build group_params
-    @group.group_memberships.build person: current_person
+    # @group.group_memberships.build person: current_person
     if @group.save
       redirect_to groups_path, notice: 'Your group was created.'
     else
@@ -26,16 +27,24 @@ class GroupsController < ApplicationController
   end
 
   def update
-    @group.update(group_params)
+    if @group.update(group_params)
+      redirect_to groups_path, notice: 'Your group was updated.'
+    else
+      render action: 'edit'
+    end
   end
 
-  def destroy
-    @group.destroy
-  end
+  # def destroy
+  #   @group.destroy
+  # end
 
   private
   def set_group
     @group = current_person.groups.find(params[:id])
+  end
+
+  def verify_editable
+    raise unless @group.editable_by?(current_person)
   end
 
   def group_params

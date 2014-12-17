@@ -19,6 +19,9 @@ class Person < ActiveRecord::Base
 
   after_create :make_initial_list
 
+  scope :by_name, -> { order(:first_name) }
+  scope :without, ->(people) { where.not(id: Array(people).flatten.compact) }
+
   def name
     "#{first_name} #{last_name}"
   end

@@ -4,4 +4,8 @@ class Group < ActiveRecord::Base
   belongs_to :creator, class_name: 'Person'
 
   validates_presence_of :name, :creator
+
+  def editable_by? person
+    creator == person
+  end
 end
