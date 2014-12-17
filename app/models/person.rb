@@ -8,10 +8,16 @@ class Person < ActiveRecord::Base
   has_many :guardianships, inverse_of: :person
   has_many :guardians, through: :guardianship
   has_many :items, class_name: 'Item', inverse_of: :creator
-  has_many :lists, inverse_of: :person
+  has_many :lists, inverse_of: :person do
+    def current
+      where(created_at: Time.current.beginning_of_year..Time.current.end_of_year).first
+    end
+  end
   has_many :purchases, class_name: 'Item', inverse_of: :purchaser
 
   validates_presence_of :first_name, :last_name, :gender
+
+  after_create :make_initial_list
 
   def name
     "#{first_name} #{last_name}"
@@ -19,5 +25,10 @@ class Person < ActiveRecord::Base
 
   def initials
     "#{first_name[0]}#{last_name[0]}"
+  end
+
+  private
+  def make_initial_list
+    lists.create
   end
 end

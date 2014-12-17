@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'awesome_print'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'capistrano-rails', group: :development
 gem 'dalli'

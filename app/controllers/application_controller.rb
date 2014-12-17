@@ -9,12 +9,16 @@ class ApplicationController < ActionController::Base
   def current_person
     current_user.person
   end
+  helper_method :current_person
 
   def after_sign_in_path_for(user)
     redirect_location = stored_location_for(user)
     unless redirect_location
-      # list path for current list
-      # no list? create list path
+      redirect_location = if current_person.lists.current
+        list_path(current_person.lists.current)
+      else
+        new_list_path
+      end
     end
     redirect_location
   end
