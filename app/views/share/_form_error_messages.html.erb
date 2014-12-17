@@ -1,0 +1,14 @@
+<% form_error_messages = Array(form_error_messages).flatten.compact.collect{|object| object.errors.full_messages if object.errors.presence }.compact %>
+
+<% if form_error_messages.any? %>
+<div class="alert alert-block alert-danger" role="alert">
+    <h4><%= pluralize(form_error_messages.count, "error") %> encountered:</h4>
+    <ul>
+        <% form_error_messages.each do |full_msgs| %>
+        <% full_msgs.each do |msg| %>
+        <li><%= msg %></li>
+        <% end %>
+        <% end %>
+    </ul>
+</div>
+<% end %>

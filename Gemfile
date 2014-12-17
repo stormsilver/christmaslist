@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'capistrano-rails', group: :development
+gem 'dalli'
 gem 'devise'
 gem 'jquery-rails'
 gem 'less-rails'

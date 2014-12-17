@@ -52,6 +52,7 @@ GEM
     coffee-script-source (1.8.0)
     colorize (0.7.5)
     commonjs (0.2.7)
+    dalli (2.7.2)
     devise (3.4.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -148,6 +149,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt-ruby (~> 3.0.0)
   capistrano-rails
+  dalli
   devise
   jquery-rails
   less-rails
