@@ -1,10 +1,5 @@
 class Person < ActiveRecord::Base
-  class Gender
-    GENDERS = %i{male female}
-    GENDERS.each do |k|
-      const_set k.upcase, k.to_s
-    end
-  end
+  enum gender: [ :male, :female ]
 
   belongs_to :user, inverse_of: :person
   has_one :addresses, inverse_of: :person

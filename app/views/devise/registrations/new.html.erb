@@ -16,7 +16,7 @@
     <%= f.fields_for :person do |person_form| %>
         <%= input_field_for person_form, :first_name %>
         <%= input_field_for person_form, :last_name %>
-        <%= select_field_for person_form, :gender, Person::Gender::GENDERS %>
+        <%= select_field_for person_form, :gender, Person.genders.keys.collect{|g| [g.titleize, g]} %>
     <% end %>
 
     <div class="form-group">

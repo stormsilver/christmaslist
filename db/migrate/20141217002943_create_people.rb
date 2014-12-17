@@ -3,7 +3,7 @@ class CreatePeople < ActiveRecord::Migration
     create_table :people do |t|
       t.string   :first_name
       t.string   :last_name
-      t.boolean  :gender
+      t.integer  :gender, limit: 1
       t.timestamps
 
       t.belongs_to :user

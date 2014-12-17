@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 20141217004255) do
   create_table "people", force: true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.boolean  "gender"
+    t.integer  "gender",     limit: 2
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
