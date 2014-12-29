@@ -14,6 +14,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @invitation = Invitation.where(token: params[:invitation_token]).first if params[:invitation_token]
     super do |rsrc|
       rsrc.person.groups << @invitation.group if @invitation
+      @invitation.recipient = rsrc.person
+      @invitation.save
     end
   end
 

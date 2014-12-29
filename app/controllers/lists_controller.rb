@@ -1,8 +1,8 @@
 class ListsController < ApplicationController
-  before_action :set_list, only: [:show, :edit, :update, :destroy]
+  before_action :set_person_and_list
 
   def index
-    @lists = List.all
+    @lists = @person.lists
   end
 
   def show
@@ -11,32 +11,15 @@ class ListsController < ApplicationController
     end
   end
 
-  def new
-    @list = List.new
-  end
-
-  def edit
-  end
-
-  def create
-    @list = List.new(list_params)
-    @list.save
-  end
-
-  def update
-    @list.update(list_params)
-  end
-
-  def destroy
-    @list.destroy
-  end
-
   private
-  def set_list
-    @list = List.find(params[:id])
-  end
-
-  def list_params
-    params[:list]
+  def set_person_and_list
+    if params[:group_id]
+      @group = current_person.groups.find(params[:group_id])
+      @list = List.joins(:groups).where(id: params[:id], groups: {id: @group.id}).first
+      @person = @list.person
+    else
+      @list = current_person.lists.find(params[:id])
+      @person = current_person
+    end
   end
 end

@@ -1,3 +1,7 @@
-<% @list.items.each do |item| %>
+<%= render partial: 'share/group_members_sidebar' %>
 
-<% end %>
+<div class="col-lg-9">
+    <% @list.items.each do |item| %>
+<%= item.name %>
+    <% end %>
+</div>

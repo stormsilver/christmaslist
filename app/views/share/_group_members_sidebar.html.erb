@@ -1,0 +1,12 @@
+<div class="col-lg-3">
+    <div class="panel panel-default">
+        <div class="panel-heading"><%= @group.name %></div>
+        <div class="panel-body">
+            <ul class="nav nav-pills nav-stacked">
+                <% @group.people.by_name.without(current_person).each do |person| %>
+                <li class="<%= active_class_if(@person, person) %>"><%= link_to person.first_name, group_list_items_path(@group, person.lists.current) %></li>
+                <% end %>
+            </ul>
+        </div>
+    </div>
+</div>

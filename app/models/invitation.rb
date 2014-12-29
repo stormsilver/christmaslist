@@ -6,6 +6,8 @@ class Invitation < ActiveRecord::Base
   before_create :generate_token
   before_save :check_user_existence, unless: :recipient
 
+  scope :unaccepted, -> {where(recipient_id: nil)}
+
   private
   def generate_token
     self.token = Devise.friendly_token
