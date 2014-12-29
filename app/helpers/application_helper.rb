@@ -6,4 +6,12 @@ module ApplicationHelper
     end
     html_class
   end
+
+  def modal_button text, path
+    link_to text, path, class: 'btn modal-trigger'
+  end
+
+  def modal_close_button
+    content_tag :button, 'Close', type: 'button', class: "btn btn-default", data: {dismiss: 'modal'}
+  end
 end

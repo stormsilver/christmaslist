@@ -1,17 +1,12 @@
-<%= form_for(@item) do |f| %>
-  <% if @item.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+<%= form_for(@item, url: @submit_url, html: {class: 'form-horizontal'}, data: {remote: true}) do |f| %>
+<div class="modal-body">
+    <%= render partial: 'share/form_error_messages', object: @item %>
 
-      <ul>
-      <% @item.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <%= input_field_for f, :name %>
+</div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<div class="modal-footer">
+    <%= modal_close_button %>
+    <%= f.submit 'Add', class: 'btn btn-primary' %>
+</div>
 <% end %>

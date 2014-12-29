@@ -23,6 +23,16 @@ class ApplicationController < ActionController::Base
     redirect_location
   end
 
+  def set_page_title title
+    @page_title = title
+  end
+
+  def page_title
+    @page_title ||= controller_name.titleize
+    @page_title
+  end
+  helper_method :page_title
+
   protected
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << {person_attributes: [:first_name, :last_name, :gender]}

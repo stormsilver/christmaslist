@@ -1,7 +1,6 @@
 <%= render partial: 'share/group_members_sidebar' %>
 
 <div class="col-lg-9">
-    <% @list.items.each do |item| %>
-<%= item.name %>
-    <% end %>
+    <%= modal_button('Add Item', new_group_list_item_path(@group, @list))%>
+    <%= render partial: 'item', collection: @list.items %>
 </div>

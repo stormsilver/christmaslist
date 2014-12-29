@@ -1,40 +1,45 @@
 class ItemsController < ApplicationController
+  layout 'modal', except: :index
+
   before_action :set_person_and_list
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_create_url, only: [:new, :create]
+  before_action :set_edit_url, only: [:edit, :update]
 
-  respond_to :html
 
   def index
-    @items = Item.all
-    respond_with(@items)
+    @items = @list.items
+    if @list.person == current_person
+      render action: 'index_owner'
+    end
   end
 
   def show
-    respond_with(@item)
   end
 
   def new
-    @item = Item.new
-    respond_with(@item)
+    set_page_title 'Add Item'
+    @item = @list.items.build
   end
 
   def edit
   end
 
   def create
-    @item = Item.new(item_params)
-    @item.save
-    respond_with(@item)
+    @item = @list.items.build(item_params)
+    if @item.save
+      redirect_via_turbolinks_to @submit_url
+    else
+      render action: 'new'
+    end
   end
 
   def update
     @item.update(item_params)
-    respond_with(@item)
   end
 
   def destroy
     @item.destroy
-    respond_with(@item)
   end
 
   private
@@ -53,7 +58,23 @@ class ItemsController < ApplicationController
     @item = @list.items.find(params[:id])
   end
 
+  def set_create_url
+    @submit_url = if @group
+      group_list_items_path(@group, @list)
+    else
+      list_items_path(@list)
+    end
+  end
+
+  def set_edit_url
+    @submit_url = if @group
+      group_list_item_path(@group, @list)
+    else
+      list_item_path(@list)
+    end
+  end
+
   def item_params
-    params[:item]
+    params.require(:item).permit(:name).merge(creator: current_person)
   end
 end
