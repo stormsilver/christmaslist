@@ -11,7 +11,9 @@
 <% end %>
 
 
-<h3>Members</h3>
+<% if @group.persisted? %>
+<fieldset>
+<legend>Members</legend>
 <% if @group.people.length > 0 %>
     <ul>
     <% @group.people.each do |person| %>
@@ -19,11 +21,15 @@
     <% end %>
     </ul>
 <% end %>
-<%= form_for @invitation, :url => group_invitations_path(@group) do |f| %>
+<h5>Add new member</h5>
+<%= form_for @invitation, :url => group_invitations_path(@group), html: {class: 'form-horizontal'} do |f| %>
+    <%= render partial: 'share/form_error_messages', object: @invitation %>
     <%= input_field_for f, :email, field_type: :email_field %>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-8">
-            <%= f.submit, 'Send' class: 'btn btn-default' %>
+            <%= f.submit 'Send', class: 'btn btn-default' %>
         </div>
     </div>
+<% end %>
+</fieldset>
 <% end %>

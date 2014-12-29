@@ -14,6 +14,7 @@ class GroupsController < ApplicationController
   end
 
   def edit
+    @invitation = @group.invitations.build
   end
 
   def create

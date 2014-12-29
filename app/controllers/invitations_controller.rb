@@ -9,7 +9,7 @@ class InvitationsController < ApplicationController
   end
 
   def new
-    @invitation = Invitation.new
+    @invitation = @group.invitations.build
   end
 
   def edit
@@ -23,7 +23,7 @@ class InvitationsController < ApplicationController
         # Add the user to the group
         @invitation.group.people << @invitation.recipient
       else
-        InvitationMailer.new_user_invitation(@invitation, new_user_registration_path(:invitation_token => @invitation.token)).deliver
+        InvitationMailer.new_user_invitation(@invitation, new_user_registration_url(:invitation_token => @invitation.token)).deliver
       end
       redirect_to group_path(@group), notice: 'Your invitation was created.'
     else

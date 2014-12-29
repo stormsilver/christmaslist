@@ -10,6 +10,12 @@ class User < ActiveRecord::Base
 
   after_initialize :make_person
 
+  def self.new_with_session params, session
+    user = new params
+    user.email = session[:invitation_email] if session[:invitation_email]
+    user
+  end
+
   private
   def make_person
     self.build_person unless person
