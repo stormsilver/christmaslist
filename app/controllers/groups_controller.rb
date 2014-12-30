@@ -22,7 +22,6 @@ class GroupsController < ApplicationController
 
   def create
     @group = current_person.groups.build group_params
-    # @group.group_memberships.build person: current_person
     if @group.save
       redirect_to groups_path, notice: 'Your group was created.'
     else

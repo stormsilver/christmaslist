@@ -1,0 +1,16 @@
+<% if @wards.length < 1 %>
+<div class="jumbotron">
+    <h1>Wards</h1>
+    <p>You can create lists for other people, like children or the elderly.</p>
+    <p><%= link_to 'Create ward', new_ward_path, class: "btn btn-primary btn-lg" %></p>
+</div>
+<% else %>
+<table class="table">
+    <% @wards.each do |person| %>
+    <tr>
+        <td><%= person.name %></td>
+        <td><%= link_to 'Edit', edit_ward_path(person) %></td>
+    </tr>
+    <% end %>
+</table>
+<% end %>

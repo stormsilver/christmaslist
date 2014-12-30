@@ -2,14 +2,14 @@ class Person < ActiveRecord::Base
   enum gender: [ :male, :female ]
 
   belongs_to :user, inverse_of: :person
-  has_one :addresses, inverse_of: :person
-  has_many :group_memberships, inverse_of: :person
+  has_one :addresses, inverse_of: :person, dependent: :destroy
+  has_many :group_memberships, inverse_of: :person, dependent: :destroy
   has_many :groups, through: :group_memberships
-  has_many :guardianships, inverse_of: :person
-  has_many :guardians, through: :guardianship
-  has_many :created_items, class_name: 'Item', foreign_key: :creator_id, inverse_of: :creator
-  has_many :purchases, class_name: 'Item', foreign_key: :purchaser_id, inverse_of: :purchaser
-  has_many :lists, inverse_of: :person
+  has_many :guardianships, inverse_of: :person, dependent: :destroy
+  has_many :guardians, through: :guardianships, source: :person
+  has_many :created_items, class_name: 'Item', foreign_key: :creator_id, inverse_of: :creator, dependent: :destroy
+  has_many :purchases, class_name: 'Item', foreign_key: :purchaser_id, inverse_of: :purchaser, dependent: :destroy
+  has_many :lists, inverse_of: :person, dependent: :destroy
   has_many :invitations, :foreign_key => 'recipient_id', inverse_of: :recipient
   has_many :sent_invitations, :class_name => "Invitation", :foreign_key => 'sender_id', inverse_of: :sender
 

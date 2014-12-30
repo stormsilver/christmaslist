@@ -1,2 +1,0 @@
-class DependentsController < ApplicationController
-end
