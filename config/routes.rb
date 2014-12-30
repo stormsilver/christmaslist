@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {registrations: 'users/registrations'}
 
+  resources :dependents
+
   resources :lists, only: [] do
     resources :items, except: [:show]
   end

@@ -37,25 +37,29 @@
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
 </head>
 <body>
-    <div class="navbar navbar-default navbar-static-top">
+    <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Christmaslist</a>
-            <div class="navbar-collapse collapse navbar-responsive-collapse">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <%= link_to 'ChristmasList', root_path, class: 'navbar-brand' %>
+            </div>
+            <div class="collapse navbar-collapse navbar-responsive-collapse">
                 <ul class="nav navbar-nav">
                     <% if user_signed_in? %>
                     <li class="<%= active_class_if(->{@person && !@group}) %>"><%= link_to 'Your List', list_items_path(current_person.lists.current.first) %></li>
                     <li class="<%= active_class_if(->{@group}) %>"><%= link_to 'Groups', groups_path %></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle btn" data-toggle="dropdown"><%= current_person.initials %></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_person.initials %> <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><h4><%= current_person.name %></h4></li>
+                            <li role="presentation" class="dropdown-header"><%= current_person.name %></li>
+                            <li><%= link_to 'Account Settings', edit_user_registration_path %></li>
+                            <li><%= link_to 'Dependents', edit_user_registration_path %></li>
                             <li role="presentation" class="divider"></li>
-                            <li><%#= link_to 'Account Settings', user_account_path %></li>
                             <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
                         </ul>
                     </li>
