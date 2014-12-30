@@ -1,11 +1,15 @@
 <%= render partial: 'share/group_members_sidebar' %>
 
 <div class="col-lg-9">
-    <%= modal_button('Add Item', new_group_list_item_path(@group, @list), "Add an item not on #{@person.first_name}'s list") %>
+    <%= modal_button('Add Item', new_group_list_item_path(@group, @list), tooltip: "Add an item not on #{@person.first_name}'s list") %>
 
-    <h4><%= @person.first_name %> still wants</h4>
-    <%= render partial: 'item', collection: @items.unpurchased %>
+    <% if @items.any? %>
+        <h4><%= @person.first_name %> still wants</h4>
+        <%= render partial: 'item', collection: @items.unpurchased %>
 
-    <h4>Already purchased</h4>
-    <%= render partial: 'item', collection: @items.purchased %>
+        <h4>Already purchased</h4>
+        <%= render partial: 'item', collection: @items.purchased %>
+    <% else %>
+    <p class="text-center lead"><%= @person.first_name %> has not added any items to <%= @person.gender_to_s :possessive_adjective %> list.</p>
+    <% end %>
 </div>

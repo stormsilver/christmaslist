@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20141217205414) do
     t.text     "description"
     t.string   "url"
     t.float    "price",        default: 0.0
+    t.boolean  "deleted",      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "list_id"

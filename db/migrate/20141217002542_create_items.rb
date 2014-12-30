@@ -5,6 +5,7 @@ class CreateItems < ActiveRecord::Migration
       t.text    :description
       t.string  :url
       t.float   :price, default: 0.0
+      t.boolean :deleted, default: false
       t.timestamps
 
       t.belongs_to :list

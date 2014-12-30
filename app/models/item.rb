@@ -13,10 +13,23 @@ class Item < ActiveRecord::Base
   scope :purchased_by, ->(p){ where(purchaser: p) }
   scope :purchased, ->{ where.not(purchaser: nil) }
   scope :unpurchased, ->{ where(purchaser: nil) }
+  scope :without_deleted, -> { where(deleted: false) }
 
   def pretty_url
     matches = /(^https?:\/\/)?([^\/]+\.)?([^\/]+\.[^\/]+)(\/.*)?/i.match(url)
     matches[3]
+  end
+
+  def purchased_by? person
+    purchaser == person
+  end
+
+  def destroy_or_hide
+    if purchaser
+      update deleted: true
+    else
+      destroy
+    end
   end
 
   private

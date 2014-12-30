@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :set_group, except: [:index]
+  before_action :set_group, except: [:index, :new, :create]
   before_action :verify_editable, only: [:edit, :update, :destroy]
 
   def index

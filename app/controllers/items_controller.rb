@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   layout 'modal', except: :index
 
   before_action :set_person_and_list
-  before_action :set_item, except: [:index]
+  before_action :set_item, except: [:index, :new, :create]
   before_action :set_create_url, only: [:new, :create, :purchase, :unpurchase]
   before_action :set_edit_url, only: [:edit, :update]
 
@@ -10,8 +10,11 @@ class ItemsController < ApplicationController
   def index
     @items = @list.items
     if @list.person == current_person
-      @items = @items.where(creator: @list.person)
+      set_page_title 'Your List'
+      @items = @items.where(creator: @list.person).without_deleted
       render action: 'index_owner'
+    else
+      set_page_title "#{@list.person.first_name}'s List"
     end
   end
 
@@ -35,14 +38,18 @@ class ItemsController < ApplicationController
 
   def update
     if @item.update(item_params)
-      redirect_via_turbolinks_to @submit_url
+      redirect_via_turbolinks_to list_items_path(@list)
     else
       render action: 'edit'
     end
   end
 
   def destroy
-    @item.destroy
+    if @item.destroy_or_hide
+      redirect_via_turbolinks_to list_items_path(@list)
+    else
+      render action: 'edit'
+    end
   end
 
   def purchase
@@ -56,7 +63,7 @@ class ItemsController < ApplicationController
   end
 
   def unpurchase
-    if @item.purchaser == current_person
+    if @item.purchased_by?(current_person)
       if @item.update purchaser: nil
         redirect_via_turbolinks_to @submit_url
       else
@@ -93,7 +100,7 @@ class ItemsController < ApplicationController
     @submit_url = if @group
       group_list_item_path(@group, @list)
     else
-      list_item_path(@list)
+      list_item_path(@list, @item)
     end
   end
 

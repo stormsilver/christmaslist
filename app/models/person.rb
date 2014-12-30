@@ -38,6 +38,49 @@ class Person < ActiveRecord::Base
     end
   end
 
+  # Returns the user's gender as a string. +form+ describes what type of string will be returned. If you need it capitalized, pass +capitalize+ as true.
+  def gender_to_s(form = :objective, capitalize = false)
+    rval = ''
+    case form
+    when :possessive
+      if female?
+        rval = 'hers'
+      else
+        rval = 'his'
+      end
+    when :possessive_adjective
+      if female?
+        rval = 'her'
+      else
+        rval = 'his'
+      end
+    when :objective
+      if female?
+        rval = 'her'
+      else
+        rval = 'him'
+      end
+    when :subjective
+      if female?
+        rval = 'she'
+      else
+        rval = 'he'
+      end
+    when :reflexive
+      if female?
+        rval = 'herself'
+      else
+        rval = 'himself'
+      end
+    end
+
+    if capitalize
+      return rval.capitalize
+    else
+      return rval
+    end
+  end
+
   private
   def make_initial_list
     lists.create

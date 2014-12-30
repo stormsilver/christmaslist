@@ -1,4 +1,12 @@
-<div class="col-lg-9">
-  <%= modal_button('Add Item', new_list_item_path(@list), 'Add an item to your list')%>
+<% if @items.length < 1 %>
+<div class="jumbotron">
+    <h1>Your List</h1>
+    <p>You can add stuff to your list that you want.</p>
+    <p><%= modal_button 'Add Stuff', new_list_item_path(@list), html_class: "btn btn-primary btn-lg" %></p>
+</div>
+<% else %>
+<div class="col-lg-offset-2 col-lg-8">
+  <%= modal_button('Add Item', new_list_item_path(@list), tooltip: 'Add an item to your list') %>
   <%= render partial: 'item', collection: @items %>
 </div>
+<% end %>
