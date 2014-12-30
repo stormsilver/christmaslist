@@ -82,12 +82,3 @@ function Modal(element) {
     };
 
 }
-
-// Modal.currently_open_modal = null;
-
-
-$(document).on('ready pjax:success page:load', function() {
-    $(".modal-trigger").each(function() {
-        new Modal($(this)).initialize();
-    });
-});

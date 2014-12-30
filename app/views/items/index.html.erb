@@ -3,6 +3,14 @@
 <div class="col-lg-9">
     <%= modal_button('Add Item', new_group_list_item_path(@group, @list), tooltip: "Add an item not on #{@person.first_name}'s list") %>
 
+    <% if @person.guardian %>
+        <% if current_user.wards.include?(@person) %>
+        <p>You manage this list for <%= @person.first_name %></p>
+        <% else %>
+        <p>This list is managed by <%= @person.guardian.person.first_name %></p>
+        <% end %>
+    <% end %>
+
     <% if @items.any? %>
         <h4><%= @person.first_name %> still wants</h4>
         <%= render partial: 'item', collection: @items.unpurchased %>

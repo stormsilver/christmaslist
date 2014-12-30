@@ -4,16 +4,9 @@
     <%= input_field_for f, :first_name %>
     <%= input_field_for f, :last_name %>
     <%= select_field_for f, :gender, Person.genders.keys.collect{|g| [g.titleize, g]} %>
+    <%= collection_field_for f, :group_ids, current_person.groups, :id, :name, label_text: 'Groups', html: {class: 'selectpicker', multiple: 'multiple'} %>
 
-    <select class="selectpicker" multiple>
-         <option>Mustard</option>
-          <option>Mustard</option>
-           <option>Mustard</option>
-            </select>
-
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-8">
-            <%= f.submit class: 'btn btn-default' %>
-        </div>
-    </div>
+    <%= form_actions do
+        f.submit class: 'btn btn-primary'
+    end %>
 <% end %>

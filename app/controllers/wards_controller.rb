@@ -42,6 +42,6 @@ class WardsController < ApplicationController
   end
 
   def ward_params
-    params.require(:person).permit(:first_name, :last_name, :gender)
+    params.require(:person).permit(:first_name, :last_name, :gender, :group_ids => [])
   end
 end
