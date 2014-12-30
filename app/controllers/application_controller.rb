@@ -14,8 +14,8 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(user)
     redirect_location = stored_location_for(user)
     unless redirect_location
-      redirect_location = if current_person.lists.current
-        list_path(current_person.lists.current)
+      redirect_location = if current_person.lists.current.first
+        list_path(current_person.lists.current.first)
       else
         new_list_path
       end

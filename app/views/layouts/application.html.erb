@@ -48,7 +48,7 @@
             <div class="navbar-collapse collapse navbar-responsive-collapse">
                 <ul class="nav navbar-nav">
                     <% if user_signed_in? %>
-                    <li><%= link_to 'Your List', list_path(current_person.lists.current) %></li>
+                    <li><%= link_to 'Your List', list_items_path(current_person.lists.current.first) %></li>
                     <li><%= link_to 'Groups', groups_path %></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle btn" data-toggle="dropdown"><%= current_person.initials %></a>

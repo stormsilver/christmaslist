@@ -1,3 +1,39 @@
 <div class="list-item">
+    <div class="pull-right">
+        <% if current_person != item.list.person %>
+            <% if item.purchaser %>
+                <% if item.purchaser == current_person %>
+                <%= link_to 'Unmark', group_list_item_unpurchase_path(@group, item.list, item), class: 'btn btn-default', method: :post, data: {remote: true} %>
+                <% else %>
+                Purchased by <%= item.purchaser.name %>
+                <% end %>
+            <% else %>
+                <%= link_to 'Mark Purchased', group_list_item_purchase_path(@group, item.list, item), class: 'btn btn-default', method: :post, data: {remote: true} %>
+            <% end %>
+        <% end %>
+    </div>
+
     <h3><%= item.name %></h3>
+    <% if item.creator != item.list.person %>
+    <div>
+        Added by <%= item.creator.name %>
+    </div>
+    <% end %>
+
+    <div>
+        <% if item.price %>
+        <div>
+            <b>Price</b>: <%= number_to_currency item.price %>
+        </div>
+        <% end %>
+        <% if item.url %>
+        <div>
+            <b>Website</b>: <%= link_to item.pretty_url, item.url, target: :blank %>
+        </div>
+        <% end %>
+
+        <% if item.description %>
+        <p><%= item.description %></p>
+        <% end %>
+    </div>
 </div>

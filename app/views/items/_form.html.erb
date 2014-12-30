@@ -3,6 +3,9 @@
     <%= render partial: 'share/form_error_messages', object: @item %>
 
     <%= input_field_for f, :name %>
+    <%= input_field_for f, :price, field_type: :number_field %>
+    <%= input_field_for f, :url, field_type: :url_field, label_text: 'Website' %>
+    <%= input_field_for f, :description, field_type: :text_area %>
 </div>
 
 <div class="modal-footer">

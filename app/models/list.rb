@@ -5,5 +5,5 @@ class List < ActiveRecord::Base
 
   validates_presence_of :person
 
-
+  scope :current, -> {where(created_at: Time.current.beginning_of_year..Time.current.end_of_year)}
 end

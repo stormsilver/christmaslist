@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_group, except: [:index]
   before_action :verify_editable, only: [:edit, :update, :destroy]
 
   def index
@@ -7,6 +7,9 @@ class GroupsController < ApplicationController
   end
 
   def show
+  end
+
+  def purchases
   end
 
   def new
@@ -41,7 +44,7 @@ class GroupsController < ApplicationController
 
   private
   def set_group
-    @group = current_person.groups.find(params[:id])
+    @group = current_person.groups.find(params[:id] || params[:group_id])
   end
 
   def verify_editable

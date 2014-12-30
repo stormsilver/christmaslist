@@ -1,5 +1,4 @@
 <div class="col-lg-9">
-    <% @list.items.each do |item| %>
-    <%= item.name %>
-    <% end %>
+  <%= modal_button('Add Item', new_list_item_path(@list), 'Add an item to your list')%>
+  <%= render partial: 'item', collection: @items %>
 </div>

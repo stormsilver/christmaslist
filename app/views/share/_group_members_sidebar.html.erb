@@ -3,8 +3,20 @@
         <div class="panel-heading"><%= @group.name %></div>
         <div class="panel-body">
             <ul class="nav nav-pills nav-stacked">
+                <li class="<%= active_class_if(/purchases/, action_name) %>">
+                    <%= link_to group_purchases_path(@group) do %>
+                        Your Purchases
+                        <span class="badge pull-right"><%= current_person.current_purchases_for(@group).count %></span>
+                    <% end %>
+                </li>
+                <li class="divider"></li>
                 <% @group.people.by_name.without(current_person).each do |person| %>
-                <li class="<%= active_class_if(@person, person) %>"><%= link_to person.first_name, group_list_items_path(@group, person.lists.current) %></li>
+                <li class="<%= active_class_if(@person, person) %>">
+                    <%= link_to group_list_items_path(@group, person.lists.current.first) do %>
+                        <%= person.first_name %>
+                        <span class="badge pull-right"><%= current_person.current_purchases_for(person).count %></span>
+                    <% end %>
+                </li>
                 <% end %>
             </ul>
         </div>
