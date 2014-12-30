@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
 
   before_action :set_person_and_list
   before_action :set_item, except: [:index, :new, :create]
-  before_action :set_create_url, only: [:new, :create, :purchase, :unpurchase]
+  before_action :set_create_url, only: [:new, :create, :purchase, :unpurchase, :destroy]
   before_action :set_edit_url, only: [:edit, :update]
 
 
@@ -46,7 +46,7 @@ class ItemsController < ApplicationController
 
   def destroy
     if @item.destroy_or_hide
-      redirect_via_turbolinks_to list_items_path(@list)
+      redirect_via_turbolinks_to @submit_url
     else
       render action: 'edit'
     end

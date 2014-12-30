@@ -15,7 +15,12 @@
 <% if @group.people.length > 0 %>
     <ul>
     <% @group.people.each do |person| %>
-        <li><%= person.name %></li>
+        <li>
+            <%= person.name %>
+            <% if person.guardian %>
+            (ward of <%= person.guardian.person.name %>)
+            <% end %>
+        </li>
     <% end %>
     </ul>
 <% end %>
@@ -23,7 +28,7 @@
 <h5>Pending Invitations</h5>
     <ul>
     <% @group.invitations.unaccepted.each do |invitation| %>
-        <li><%= invitation.email %></li>
+        <li><%= invitation.email %> (sent on <%= invitation.created_at.to_s(:long) %>)</li>
     <% end %>
     </ul>
 <% end %>

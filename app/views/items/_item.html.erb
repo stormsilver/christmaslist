@@ -9,6 +9,9 @@
                 <% end %>
             <% else %>
                 <%= link_to 'Mark Purchased', group_list_item_purchase_path(@group, item.list, item), class: 'btn btn-default', method: :post, data: {remote: true} %>
+                <% if item.creator == current_person %>
+                    <%= link_to 'Delete', group_list_item_path(@group, item.list, item), class: 'btn btn-default', method: :delete, data: {remote: true, confirm: 'Are you sure you want to remove this item?'} %>
+                <% end %>
             <% end %>
         <% else %>
             <%= modal_button 'Edit', edit_list_item_path(item.list, item), html_class: 'btn btn-default' %>

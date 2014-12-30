@@ -27,4 +27,13 @@ module ApplicationHelper
   def modal_close_button
     content_tag :button, 'Close', type: 'button', class: "btn btn-default", data: {dismiss: 'modal'}
   end
+
+  def days_until_christmas
+    now = Date.today
+    christmas = Date.new now.year, 12, 25
+    # next year
+    christmas = Date.new now.year+1, 12, 25 if now > christmas
+
+    (christmas - now).to_i
+  end
 end

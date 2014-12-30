@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :groups do
     resources :invitations
     resources :lists, only: [] do
-      resources :items, only: [:index, :new, :create] do
+      resources :items, only: [:index, :new, :create, :destroy] do
         post :purchase
         post :unpurchase
       end

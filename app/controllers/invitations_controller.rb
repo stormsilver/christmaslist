@@ -25,7 +25,7 @@ class InvitationsController < ApplicationController
       else
         InvitationMailer.new_user_invitation(@invitation, new_user_registration_url(:invitation_token => @invitation.token)).deliver
       end
-      redirect_to group_path(@group), notice: 'Your invitation was created.'
+      redirect_to edit_group_path(@group), notice: 'Your invitation was created.'
     else
       render action: 'new'
     end
