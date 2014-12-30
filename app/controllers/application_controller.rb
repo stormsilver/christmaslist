@@ -33,6 +33,14 @@ class ApplicationController < ActionController::Base
   end
   helper_method :page_title
 
+  def set_page_subtitle title
+    @page_subtitle = title
+  end
+  def page_subtitle
+    @page_subtitle
+  end
+  helper_method :page_subtitle
+
   protected
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << {person_attributes: [:first_name, :last_name, :gender]}

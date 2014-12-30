@@ -10,16 +10,16 @@
             <% else %>
                 <%= link_to 'Mark Purchased', group_list_item_purchase_path(@group, item.list, item), class: 'btn btn-default', method: :post, data: {remote: true} %>
                 <% if item.creator == current_person %>
-                    <%= link_to 'Delete', group_list_item_path(@group, item.list, item), class: 'btn btn-default', method: :delete, data: {remote: true, confirm: 'Are you sure you want to remove this item?'} %>
+                    <%= link_to 'Delete', group_list_item_path(@group, item.list, item), class: 'btn btn-danger', method: :delete, data: {remote: true, confirm: 'Are you sure you want to remove this item?'} %>
                 <% end %>
             <% end %>
         <% else %>
             <%= modal_button 'Edit', edit_list_item_path(item.list, item), html_class: 'btn btn-default' %>
-            <%= link_to 'Delete', list_item_path(item.list, item), class: 'btn btn-default', method: :delete, data: {remote: true, confirm: 'Are you sure you want to remove this item from your list?'} %>
+            <%= link_to 'Delete', list_item_path(item.list, item), class: 'btn btn-danger', method: :delete, data: {remote: true, confirm: 'Are you sure you want to remove this item from your list?'} %>
         <% end %>
     </div>
 
-    <h3><%= item.name %></h3>
+    <h4><%= item.name %></h4>
     <% if item.creator != item.list.person %>
     <div>
         Added by <%= item.creator.name %>
