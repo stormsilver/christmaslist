@@ -4,8 +4,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
   def new
-    @invitation = Invitation.where(token: params[:invitation_token]).first if params[:invitation_token]
-    session[:invitation_email] = @invitation.email
+    if params[:invitation_token]
+      @invitation = Invitation.where(token: params[:invitation_token]).first
+      session[:invitation_email] = @invitation.email
+    end
     super
   end
 
@@ -13,9 +15,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     @invitation = Invitation.where(token: params[:invitation_token]).first if params[:invitation_token]
     super do |rsrc|
-      rsrc.person.groups << @invitation.group if @invitation
-      @invitation.recipient = rsrc.person
-      @invitation.save
+      if @invitation
+        rsrc.person.groups << @invitation.group
+        @invitation.recipient = rsrc.person
+        @invitation.save
+      end
     end
   end
 

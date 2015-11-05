@@ -18,25 +18,7 @@
 
 
 
-@body-bg: #400;
-@brand-primary: #f30;
-@text-color: #ed4441;
-
-@content-contained-text-color: #dcdcdc;
-@content-bg-color: darken(@text-color, 35%);
-
-@navbar-default-color: @text-color;
-@navbar-default-bg: @content-bg-color;
-@navbar-default-link-color:                @link-color;
-@navbar-default-link-hover-color:          @link-hover-color;
-@navbar-default-link-active-color:         @link-hover-color;
-@navbar-default-link-disabled-color:       darken(@navbar-default-link-color, 15%);
-// Navbar toggle
-@navbar-default-toggle-hover-bg:           #ddd;
-@navbar-default-toggle-icon-bar-bg:        #888;
-@navbar-default-toggle-border-color:       #ddd;
-
-
+@import 'bootstrap_variables';
 
 
 
@@ -60,7 +42,7 @@
 }
 
 .button-panel {
-    .pull-right();
+    .text-right();
     padding-right: @grid-gutter-width/2;
     padding-bottom: @grid-gutter-width/2;
 }
@@ -72,4 +54,15 @@
     border-radius: @border-radius-base;
     color: @content-contained-text-color;
     .clearfix();
+}
+
+.christmaslist-item {
+  .clearfix();
+  border-bottom: 1px dashed @content-border-color;
+  padding-bottom: @padding-base-vertical;
+}
+
+
+input {
+  color: @text-color;
 }
