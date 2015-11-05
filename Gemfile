@@ -17,3 +17,5 @@ gem 'therubyracer',  platforms: :ruby
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 gem 'twitter-bootstrap-rails'
+gem 'rails_12factor', group: :production
+gem 'puma'
