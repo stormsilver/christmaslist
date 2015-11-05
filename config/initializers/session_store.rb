@@ -1,1 +1,1 @@
-Rails.application.config.session_store :mem_cache_store, key: '_christmaslist_session'
+Rails.application.config.session_store :cookie_store, key: '_christmaslist_session'
