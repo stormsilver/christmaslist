@@ -18,6 +18,7 @@ test:
 
 production:
   <<: *default
-  database: christmaslist_production
-  username: adminxhmciht
+  host: ec2-107-21-221-107.compute-1.amazonaws.com
+  database: dd5uuqsjc4gki
+  username: jeruikcxfvbsgq
   password: <%= ENV['CHRISTMASLIST_DATABASE_PASSWORD'] %>

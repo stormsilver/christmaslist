@@ -22,5 +22,7 @@ module Christmaslist
     config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
     config.action_mailer.delivery_method = :postmark
     config.action_mailer.postmark_settings = { :api_key => Rails.application.secrets.postmark_api_key }
+
+    config.cache_store = :mem_cache_store, Rails.application.secrets.memcached_server, { :namespace => "fms#{ENV['TEST_ENV_NUMBER']}", :compress => true }
   end
 end
