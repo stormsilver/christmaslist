@@ -79,7 +79,9 @@
               <h1><%= page_title %> <small><%= page_subtitle %></small></h1>
             </div>
             <%= bootstrap_flash %>
-            <%= yield %>
+            <div class="content-container">
+                <%= yield %>
+            </div>
         </div>
         <div class="row">
             <footer class="text-center">
