@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20141217205414) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "addresses", force: true do |t|
+  create_table "addresses", force: :cascade do |t|
     t.string   "address1"
     t.string   "address2"
     t.string   "city"
@@ -28,28 +28,28 @@ ActiveRecord::Schema.define(version: 20141217205414) do
     t.integer  "person_id"
   end
 
-  create_table "group_memberships", force: true do |t|
+  create_table "group_memberships", force: :cascade do |t|
     t.integer  "group_id"
     t.integer  "person_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "groups", force: true do |t|
+  create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "creator_id"
   end
 
-  create_table "guardianships", force: true do |t|
+  create_table "guardianships", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "person_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "invitations", force: true do |t|
+  create_table "invitations", force: :cascade do |t|
     t.string   "email"
     t.string   "token"
     t.datetime "created_at"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20141217205414) do
     t.integer  "recipient_id"
   end
 
-  create_table "items", force: true do |t|
+  create_table "items", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
     t.string   "url"
@@ -72,13 +72,13 @@ ActiveRecord::Schema.define(version: 20141217205414) do
     t.integer  "creator_id"
   end
 
-  create_table "lists", force: true do |t|
+  create_table "lists", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "person_id"
   end
 
-  create_table "people", force: true do |t|
+  create_table "people", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.integer  "gender",     limit: 2
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 20141217205414) do
     t.integer  "user_id"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"

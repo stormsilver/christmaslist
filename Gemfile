@@ -10,7 +10,7 @@ gem 'less-rails'
 gem 'local_time'
 gem 'pg'
 gem 'postmark-rails'
-gem 'rails', '~> 4.1.8'
+gem 'rails', '~> 4.2.0'
 gem 'spring',        group: :development
 gem 'therubyracer',  platforms: :ruby
 gem 'turbolinks'
