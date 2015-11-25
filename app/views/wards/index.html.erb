@@ -5,6 +5,10 @@
     <p><%= link_to 'Create ward', new_ward_path, class: "btn btn-primary btn-lg" %></p>
 </div>
 <% else %>
+<div class="button-panel">
+    <%= link_to 'New ward', new_ward_path, class: "btn btn-default" %>
+</div>
+
 <table class="table">
     <% @wards.each do |person| %>
     <tr>
