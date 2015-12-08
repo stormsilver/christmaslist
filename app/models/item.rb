@@ -17,7 +17,7 @@ class Item < ActiveRecord::Base
 
   def pretty_url
     matches = /(^https?:\/\/)?([^\/]+\.)?([^\/]+\.[^\/]+)(\/.*)?/i.match(url)
-    matches[3]
+    matches.try(:[], 3)
   end
 
   def purchased_by? person
