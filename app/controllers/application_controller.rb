@@ -13,13 +13,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(user)
     redirect_location = stored_location_for(user)
-    unless redirect_location
-      redirect_location = if current_person.lists.current.first
-        list_items_path(current_person.lists.current.first)
-      else
-        new_list_path
-      end
-    end
+    redirect_location ||= path_to_current_list
     redirect_location
   end
 
@@ -42,7 +36,14 @@ class ApplicationController < ActionController::Base
   helper_method :page_subtitle
 
   protected
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << {person_attributes: [:first_name, :last_name, :gender]}
+  end
+
+  def path_to_current_list
+    current_list = current_person.lists.current.first
+    current_list ||= current_person.lists.create
+    list_items_path(current_list)
   end
 end

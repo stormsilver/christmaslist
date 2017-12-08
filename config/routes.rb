@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :wards, except: [:show]
 
-  resources :lists, only: [] do
+  resources :lists, only: [:index] do
     resources :items, except: [:show]
   end
 
