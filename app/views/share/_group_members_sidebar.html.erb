@@ -12,9 +12,13 @@
                 <li class="divider"></li>
                 <% @group.people.by_name.without(current_person).each do |person| %>
                 <li class="<%= active_class_if(@person, person) %>">
-                    <%= link_to group_list_items_path(@group, person.lists.current.first) do %>
+                    <% if person.lists.current.first %>
+                        <%= link_to group_list_items_path(@group, person.lists.current.first) do %>
+                            <%= person.first_name %>
+                            <span class="badge pull-right"><%= current_person.current_purchases_for(person).count %></span>
+                        <% end %>
+                    <% else %>
                         <%= person.first_name %>
-                        <span class="badge pull-right"><%= current_person.current_purchases_for(person).count %></span>
                     <% end %>
                 </li>
                 <% end %>

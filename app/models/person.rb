@@ -31,7 +31,12 @@ class Person < ActiveRecord::Base
   def current_purchases_for person_or_group
     case person_or_group
     when Person
-      person_or_group.lists.current.first.items.purchased_by(self)
+      list = person_or_group.lists.current.first
+      if list
+        list.items.purchased_by(self)
+      else
+        []
+      end
     when Group
       list_ids = List.current.joins(:person).where(people: {id: person_or_group.people.pluck(:id)}).pluck(:id)
       Item.purchased_by(self).joins(:list).where(lists: {id: list_ids })
