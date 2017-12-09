@@ -28,17 +28,22 @@ class Person < ActiveRecord::Base
     "#{first_name[0]}#{last_name[0]}"
   end
 
-  def current_purchases_for person_or_group
+  def list_for_year(year)
+    @_lists ||= {}
+    @_lists[year] ||= lists.for_year(year).first
+  end
+
+  def current_purchases_for person_or_group, year
     case person_or_group
     when Person
-      list = person_or_group.lists.current.first
+      list = person_or_group.list_for_year(year)
       if list
         list.items.purchased_by(self)
       else
         []
       end
     when Group
-      list_ids = List.current.joins(:person).where(people: {id: person_or_group.people.pluck(:id)}).pluck(:id)
+      list_ids = List.for_year(year).joins(:person).where(people: {id: person_or_group.people.pluck(:id)}).pluck(:id)
       Item.purchased_by(self).joins(:list).where(lists: {id: list_ids })
     end
   end

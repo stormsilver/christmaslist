@@ -6,16 +6,16 @@
                 <li class="<%= active_class_if(/purchases/, action_name) %>">
                     <%= link_to group_purchases_path(@group) do %>
                         Your Purchases
-                        <span class="badge pull-right"><%= current_person.current_purchases_for(@group).count %></span>
+                        <span class="badge pull-right"><%= current_person.current_purchases_for(@group, current_year).count %></span>
                     <% end %>
                 </li>
                 <li class="divider"></li>
                 <% @group.people.by_name.without(current_person).each do |person| %>
                 <li class="<%= active_class_if(@person, person) %>">
-                    <% if person.lists.current.first %>
-                        <%= link_to group_list_items_path(@group, person.lists.current.first) do %>
+                    <% if list = person.list_for_year(current_year) %>
+                        <%= link_to group_list_items_path(@group, list) do %>
                             <%= person.first_name %>
-                            <span class="badge pull-right"><%= current_person.current_purchases_for(person).count %></span>
+                            <span class="badge pull-right"><%= current_person.current_purchases_for(person, current_year).count %></span>
                         <% end %>
                     <% else %>
                         <%= person.first_name %>

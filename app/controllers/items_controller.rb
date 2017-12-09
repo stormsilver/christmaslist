@@ -9,6 +9,7 @@ class ItemsController < ApplicationController
 
   def index
     @items = @list.items
+    set_page_subtitle current_year
     if @list.person == current_person
       set_page_title 'Your List'
       @items = @items.where(creator: @list.person).without_deleted
@@ -30,7 +31,7 @@ class ItemsController < ApplicationController
   def create
     @item = @list.items.build(item_params)
     if @item.save
-      redirect_via_turbolinks_to @submit_url
+      redirect_to @submit_url
     else
       render action: 'new'
     end
@@ -38,7 +39,7 @@ class ItemsController < ApplicationController
 
   def update
     if @item.update(item_params)
-      redirect_via_turbolinks_to list_items_path(@list)
+      redirect_to list_items_path(@list)
     else
       render action: 'edit'
     end
@@ -46,7 +47,7 @@ class ItemsController < ApplicationController
 
   def destroy
     if @item.destroy_or_hide
-      redirect_via_turbolinks_to @submit_url
+      redirect_to @submit_url
     else
       render action: 'edit'
     end
@@ -55,7 +56,7 @@ class ItemsController < ApplicationController
   def purchase
     unless @item.purchaser
       if @item.update purchaser: current_person
-        redirect_via_turbolinks_to @submit_url
+        redirect_to @submit_url
       else
         render action: 'edit'
       end
@@ -65,7 +66,7 @@ class ItemsController < ApplicationController
   def unpurchase
     if @item.purchased_by?(current_person)
       if @item.update purchaser: nil
-        redirect_via_turbolinks_to @submit_url
+        redirect_to @submit_url
       else
         render action: 'edit'
       end
@@ -73,13 +74,32 @@ class ItemsController < ApplicationController
   end
 
   private
+
   def set_person_and_list
     if params[:group_id]
       @group = current_person.groups.find(params[:group_id])
       @list = List.joins(:groups).where(id: params[:list_id], groups: {id: @group.id}).first
+      if @list.year != current_year
+        current_list = List.joins(:groups).where(person_id: @list.person_id, groups: {id: @group.id}).for_year(current_year).first
+        if current_list
+          redirect_to group_list_items_path(params[:group_id], current_list.id)
+        else
+          redirect_to group_path(params[:group_id])
+        end
+        return
+      end
       @person = @list.person
     else
       @list = current_person.lists.find(params[:list_id])
+      if @list.year != current_year
+        current_list = current_person.list_for_year(current_year)
+        if current_list
+          redirect_to list_items_path(current_list.id)
+        else
+          redirect_to root_path
+        end
+        return
+      end
       @person = current_person
     end
   end

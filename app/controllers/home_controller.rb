@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  skip_filter :authenticate_user!
+  skip_before_action :authenticate_user!
 
   def index
     set_page_title "Welcome to Christmas List #{Date.today.year}!"

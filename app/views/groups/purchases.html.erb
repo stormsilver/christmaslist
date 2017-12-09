@@ -3,7 +3,7 @@
 <div class="col-lg-9">
     <% @group.people.by_name.without(current_person).each do |person| %>
     <h4><%= person.name %></h4>
-    <%= render(partial: 'items/item', collection: current_person.current_purchases_for(person)) || "Nothing purchased yet" %>
+    <%= render(partial: 'items/item', collection: current_person.current_purchases_for(person, current_year)) || "Nothing purchased yet" %>
     <hr />
     <% end %>
 </div>

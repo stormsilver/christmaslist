@@ -5,5 +5,9 @@ class List < ActiveRecord::Base
 
   validates_presence_of :person
 
-  scope :current, -> {where(created_at: Time.current.beginning_of_year..Time.current.end_of_year)}
+  scope :for_year, ->(year) { where("date_part('year', #{self.quoted_table_name}.created_at) = ?".freeze, year).order(created_at: :desc) }
+
+  def year
+    created_at.year
+  end
 end
