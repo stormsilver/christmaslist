@@ -49,6 +49,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :available_years_for_navigation
 
+  def enable_buttons?
+    current_year == @todays_year
+  end
+  helper_method :enable_buttons?
+
   protected
 
   def configure_permitted_parameters

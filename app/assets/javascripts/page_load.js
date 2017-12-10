@@ -3,8 +3,10 @@ $.fn.selectpicker.defaults = {
     tickIcon: 'fa-check'
 };
 
-$(document).on('ready pjax:success page:load', function() {
+// $(document).on('ready turbolinks:load page:load', function() {
+$(document).on('turbolinks:load', function() {
     $(".modal-trigger").each(function() {
+        // console.log("modal trigger", $(this))
         new Modal($(this)).initialize();
     });
     $('a[rel~=tooltip], .has-tooltip, [data-toggle="tooltip"]').tooltip();

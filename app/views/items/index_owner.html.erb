@@ -2,13 +2,17 @@
     <div class="jumbotron">
         <h1>Your List</h1>
         <p>You can add stuff to your list that you want.</p>
-        <p><%= modal_button 'Add Stuff', new_list_item_path(@list), html_class: "btn btn-primary btn-lg" %></p>
+        <% if enable_buttons? %>
+            <p><%= modal_button 'Add Stuff', new_list_item_path(@list), html_class: "btn btn-primary btn-lg" %></p>
+        <% end %>
     </div>
 <% else %>
     <div class="col-lg-offset-2 col-lg-8">
-        <div class="button-panel">
-            <%= modal_button('Add Item', new_list_item_path(@list), tooltip: 'Add an item to your list') %>
-        </div>
+         <% if enable_buttons? %>
+            <div class="button-panel">
+                <%= modal_button('Add Item', new_list_item_path(@list), tooltip: 'Add an item to your list') %>
+            </div>
+        <% end %>
         <%= render partial: 'item', collection: @items %>
     </div>
 <% end %>

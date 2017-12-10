@@ -1,13 +1,14 @@
 function Modal(element) {
     var self = this;
     self.element = element;
-    self.parent_document_title = null;
+    self.original_title = null;
 
     self.modal = function() {
         return $('#modal');
     };
 
     self.initialize = function() {
+        console.log("init", element)
         self.element.on('click', self.open_modal);
     };
 
@@ -31,6 +32,7 @@ function Modal(element) {
     };
 
     self.close = function() {
+        self.modal().off('show.bs.modal').off('hidden.bs.modal');
         self.reset_document_title();
     };
 
@@ -72,13 +74,17 @@ function Modal(element) {
     };
 
     self.update_document_title = function(new_title) {
-        self.parent_document_title = self.parent_document_title || document.title;
-        document.title = new_title + " | ChristmasList";
+        if (new_title) {
+            self.original_title = self.original_title || document.title;
+            document.title = new_title + " | ChristmasList";
+        }
     };
 
     self.reset_document_title = function() {
-        document.title = self.parent_document_title;
-        self.parent_document_title = null;
+        if (self.original_title) {
+            document.title = self.original_title;
+            self.original_title = null;
+        }
     };
 
 }

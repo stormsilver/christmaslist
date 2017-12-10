@@ -1,9 +1,11 @@
 <%= render partial: 'share/group_members_sidebar' %>
 
 <div class="col-lg-9">
-    <div class="button-panel">
-        <%= modal_button('Add Item', new_group_list_item_path(@group, @list), tooltip: "Add an item not on #{@person.first_name}'s list") %>
-    </div>
+    <% if enable_buttons? %>
+        <div class="button-panel">
+            <%= modal_button('Add Item', new_group_list_item_path(@group, @list), tooltip: "Add an item not on #{@person.first_name}'s list") %>
+        </div>
+    <% end %>
 
     <% if @person.guardian %>
     <p>

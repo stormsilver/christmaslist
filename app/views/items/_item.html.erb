@@ -2,18 +2,18 @@
     <div class="pull-right">
         <% if current_person != item.list.person %>
             <% if item.purchaser %>
-                <% if item.purchased_by?(current_person) %>
+                <% if item.purchased_by?(current_person) && enable_buttons? %>
                 <%= link_to 'Unmark', group_list_item_unpurchase_path(@group, item.list, item), class: 'btn btn-default', method: :post, data: {remote: true} %>
                 <% else %>
                 Purchased by <%= item.purchaser.name %>
                 <% end %>
-            <% else %>
+            <% elsif enable_buttons? %>
                 <%= link_to 'Mark Purchased', group_list_item_purchase_path(@group, item.list, item), class: 'btn btn-default', method: :post, data: {remote: true} %>
                 <% if item.creator == current_person %>
                     <%= link_to 'Delete', group_list_item_path(@group, item.list, item), class: 'btn btn-danger', method: :delete, data: {remote: true, confirm: 'Are you sure you want to remove this item?'} %>
                 <% end %>
             <% end %>
-        <% else %>
+        <% elsif enable_buttons? %>
             <%= modal_button 'Edit', edit_list_item_path(item.list, item), html_class: 'btn btn-default' %>
             <%= link_to 'Delete', list_item_path(item.list, item), class: 'btn btn-danger', method: :delete, data: {remote: true, confirm: 'Are you sure you want to remove this item from your list?'} %>
         <% end %>
