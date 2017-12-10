@@ -2,7 +2,7 @@ class Person < ActiveRecord::Base
   enum gender: [ :male, :female ]
 
   belongs_to :user, inverse_of: :person
-  has_one :addresses, inverse_of: :person, dependent: :destroy
+  # has_one :addresses, inverse_of: :person, dependent: :destroy
   has_many :group_memberships, inverse_of: :person, dependent: :destroy
   has_many :groups, through: :group_memberships
   has_one :guardianship, inverse_of: :person, dependent: :destroy
